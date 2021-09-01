@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ord_kdla", "ord_kdla.csproj", "{CF64F3E1-8371-44B1-B6D4-4BCA80D6F7EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF64F3E1-8371-44B1-B6D4-4BCA80D6F7EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF64F3E1-8371-44B1-B6D4-4BCA80D6F7EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF64F3E1-8371-44B1-B6D4-4BCA80D6F7EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF64F3E1-8371-44B1-B6D4-4BCA80D6F7EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6554B1CD-8F9F-49C4-8E9B-4497AC3FEFDE}
+	EndGlobalSection
+EndGlobal
