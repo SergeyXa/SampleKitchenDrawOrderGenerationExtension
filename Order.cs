@@ -4,32 +4,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using com.github._3F.DllExport;
+using System.Runtime.InteropServices;
 
 namespace ord_kdla
 {
-    public class Order
+    public static class Order
     {
-        Appli _appli = new Appli();
-        Scene _scene = new Scene();
+        static Appli _appli = new Appli();
+        static Scene _scene = new Scene();
 
-        public void WriteLineToCsv(TextWriter textWriter, params string[] values)
-        {
-            textWriter.WriteLine(
-                string.Join(",",
-                    values.Select(value => 
-                        value.Contains(",") 
-                        ? $"\"{value}\"" 
-                        : value)));
-        }
-
-        public bool GenerateOrder(int unused)
+        [DllExport(CallingConvention.StdCall)]
+        public static bool GenerateOrder(int callParamsBlock)
         {
             try
             {
                 bool isFactorized = true;
 
-                string orderFilename = _appli.GetCallParamsInfo(AppliEnum.CallParamId.ORDERFILENAME);
-                string supplierId = _appli.GetCallParamsInfo(AppliEnum.CallParamId.SUPPLIERID);
+                string orderFilename = _appli.GetCallParamsInfoDirect(callParamsBlock, AppliEnum.CallParamId.ORDERFILENAME);
+                string supplierId = _appli.GetCallParamsInfoDirect(callParamsBlock, AppliEnum.CallParamId.SUPPLIERID);
 
                 var dataForCsv = new List<(string Reference, string Quantity, string Height, string Width, string Depth, string ModelName)>();
 
@@ -62,6 +55,16 @@ namespace ord_kdla
             }
 
             return true;
+        }
+
+        private static void WriteLineToCsv(TextWriter textWriter, params string[] values)
+        {
+            textWriter.WriteLine(
+                string.Join(",",
+                    values.Select(value =>
+                        value.Contains(",")
+                        ? $"\"{value}\""
+                        : value)));
         }
     }
 }
