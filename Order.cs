@@ -19,7 +19,7 @@ namespace ord_kdla
         {
             try
             {
-                bool isFactorized = true;
+                bool isFactorized = false;
 
                 string orderFilename = _appli.GetCallParamsInfoDirect(callParamsBlock, AppliEnum.CallParamId.ORDERFILENAME);
                 string supplierId = _appli.GetCallParamsInfoDirect(callParamsBlock, AppliEnum.CallParamId.SUPPLIERID);

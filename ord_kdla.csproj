@@ -52,7 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="kd.sdk">
-      <HintPath>..\..\..\..\..\..\KD8\kd.sdk.dll</HintPath>
+      <HintPath>..\..\..\..\..\is90mob\kd.sdk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
