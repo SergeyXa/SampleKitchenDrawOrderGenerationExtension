@@ -24,6 +24,15 @@ namespace ord_kdla
                 string orderFilename = _appli.GetCallParamsInfoDirect(callParamsBlock, AppliEnum.CallParamId.ORDERFILENAME);
                 string supplierId = _appli.GetCallParamsInfoDirect(callParamsBlock, AppliEnum.CallParamId.SUPPLIERID);
 
+                string referencePattern =
+                    _appli.ReadStringFromIniFile(
+                        Path.Combine(_appli.AppliGetInfo(AppliEnum.Info.EXE_DIR), "space.ini"),
+                        Path.GetFileName(typeof(Order).Assembly.Location),
+                        "referencePattern");
+
+                if(string.IsNullOrEmpty(referencePattern))
+                    referencePattern = "$$";
+
                 var dataForCsv = new List<(string Reference, string Quantity, string Height, string Width, string Depth, string ModelName)>();
 
                 int objectsNb = _scene.SupplierGetObjectsNb(supplierId, -1, isFactorized);
@@ -39,10 +48,11 @@ namespace ord_kdla
                     string orderHeight =_scene.ObjectGetInfo(objectId, SceneEnum.ObjectInfo.ORDERDIMZ);
                     string orderWidth =_scene.ObjectGetInfo(objectId, SceneEnum.ObjectInfo.ORDERDIMX);
                     string orderDepth = _scene.ObjectGetInfo(objectId, SceneEnum.ObjectInfo.ORDERDIMY);
-                    string modelName = _scene.ObjectGetInfo(objectId, SceneEnum.ObjectInfo.MODELNAME);
+                    string objectCode = _scene.ObjectGetInfo(objectId, SceneEnum.ObjectInfo.CODE);
 
                     WriteLineToCsv(textWriter,
-                        reference, quantity, orderHeight, orderWidth, orderDepth, modelName);
+                        referencePattern.Replace("$$", reference), 
+                        quantity, orderHeight, orderWidth, orderDepth, objectCode);
                 }
 
                 textWriter.Dispose();
@@ -60,7 +70,7 @@ namespace ord_kdla
         private static void WriteLineToCsv(TextWriter textWriter, params string[] values)
         {
             textWriter.WriteLine(
-                string.Join(",",
+                string.Join(";",
                     values.Select(value =>
                         value.Contains(",")
                         ? $"\"{value}\""
